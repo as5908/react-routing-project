@@ -14,6 +14,18 @@ class Course extends Component {
       this.setState({ [param[0]]: param[1] });
     }
   }
+  componentDidUpdate() {
+    const search = this.props.location.search;
+    const query = new URLSearchParams(this.props.location.search);
+    for (let param of query.entries()) {
+      console.log(param); // yields ['start', '5']
+      if (this.state[param[0]] !== param[1]) {
+        //avoid infinite loop    //
+        this.setState({ [param[0]]: param[1] });
+      }
+    }
+  }
+
   render() {
     console.log(this.props);
 
